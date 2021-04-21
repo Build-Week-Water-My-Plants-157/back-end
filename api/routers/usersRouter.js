@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Users = require('../models/usersModel');
-
+const {find} = require('../findMiddleware')
 // Get all users
 router.get('/', async (req, res, next) => {
     try {
@@ -14,16 +14,16 @@ router.get('/', async (req, res, next) => {
 
 
 // Get user by ID
-router.get('/:id', async (req, res, next) => {
-    if(!req.params.id) {
+router.get('/:id',   async (req, res, next) => {
+    const id = req.params.id
+    if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
     }
     try {
-
-        const user = await Users.findById(req.params.id);
-        res.status(200).json(user);
+        const user = await Users.findById(id, {});
+        res.json(user);
     } catch (err) {
-        console.log(err)
+
         next({apiCode: 500, apiMessage: 'Error retrieving user.', ...err });
     }
 })
@@ -40,13 +40,13 @@ router.post('/', async (req, res, next) => {
 })
 
 // Delete User
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id' ,find,  async (req, res, next) => {
     const id = parseInt(req.params.id)
    if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
     }
+    const user = await Users.remove(id, {})
     try {
-        const user = await Users.remove(id)
         res.json(user)
 
     } catch (err) {
@@ -54,14 +54,21 @@ next({apiCode: 500, apiMessage: 'Error Deleting User.', ...err})}
 })
 
 // Update User
-router.put('/:id', async (req, res, next) => {
+router.put('/:id',find,  async (req, res, next) => {
     const id = parseInt(req.params.id)
+    console.log(req.body)
+    if(!id) {
+ next({apiCode: 400, apiMessage: 'Provide ID', ...err})
+}
+
     try {
-        const user = await Users.update(id)
+        const user = await Users.update(id, req.body)
+        console.log(user)
         res.json(user)
     } catch (err) {
-    next({apiCode: 500, apiMessage: 'Error Updating User.', ...err})}
+        next({apiCode: 500, apiMessage: 'Error Updating User.', ...err})}
 
-})
+
+    })
 
 module.exports = router;

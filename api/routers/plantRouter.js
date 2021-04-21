@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Plant = require('../models/plantsModel');
-
+const {findPlant} = require('../findMiddleware')
 // Get All Plants
 router.get('/', async (req, res, next) => {
   try {
@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // Get Plant by ID
-router.get('/:id', async (req, res, next) => {
+router.get('/:id',findPlant,  async (req, res, next) => {
   try {
     const plant = await Plant.findById(req.params.id)
      res.json(plant)
@@ -32,7 +32,7 @@ try {
 })
 
 // Update Plant
-router.put('/:id', async (req, res, next) => {
+router.put('/:id',findPlant, async (req, res, next) => {
   try {
     const plant = await Plant.findById(req.params.id)
      res.json(plant)
@@ -42,7 +42,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 // Delete Plant
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id',findPlant, async (req, res, next) => {
   try {
     const plant = await Plant.remove(req.params.id)
     res.json(plant)
