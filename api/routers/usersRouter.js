@@ -40,12 +40,13 @@ router.post('/', async (req, res, next) => {
 })
 
 // Delete User
-router.delete('/', async (req, res, next) => {
-   if(!req.params.id) {
+router.delete('/:id', async (req, res, next) => {
+    const id = parseInt(req.params.id)
+   if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
     }
     try {
-        const user = await Users.remove(req.params.id)
+        const user = await Users.remove(id)
         res.json(user)
 
     } catch (err) {
@@ -54,8 +55,9 @@ next({apiCode: 500, apiMessage: 'Error Deleting User.', ...err})}
 
 // Update User
 router.put('/:id', async (req, res, next) => {
+    const id = parseInt(req.params.id)
     try {
-        const user = await Users.update(req.params.id)
+        const user = await Users.update(id)
         res.json(user)
     } catch (err) {
     next({apiCode: 500, apiMessage: 'Error Updating User.', ...err})}
