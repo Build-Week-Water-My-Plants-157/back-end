@@ -16,7 +16,7 @@ async function findById(id) {
         id: res.id,
         username: res.username,
         phone_number: res.phone_number,
-        plants: [await findPlants(res.id)]
+        plants: await findPlants(res.id)
     }
     return newObj;
 }
