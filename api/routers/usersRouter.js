@@ -25,7 +25,7 @@ router.get('/:id', async (req, res, next) => {
         res.json(user);
     } catch (err) {
 
-        next({apiCode: 500, apiMessage: 'Error retrieving user.', ...err });
+        next({apiCode: 500, apiMessage: 'Error retrieving user', ...err });
     }
 })
 
