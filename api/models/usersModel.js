@@ -11,7 +11,7 @@ async function findById(id) {
     .join("users_plants as up", "up.user_id", "u.id")
     .leftJoin("plants as p", "p.id", "up.plant_id").
     where({"u.id": id})
-    .groupBy("p.id")
+    .groupBy("up.id")
     .first();
 
     console.log(res, "res")
