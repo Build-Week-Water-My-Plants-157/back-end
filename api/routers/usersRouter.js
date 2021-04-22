@@ -25,6 +25,7 @@ router.get('/:id', restricted, async (req, res, next) => {
     }
     try {
         const user = await Users.findById(id, {});
+        console.log(user)
         res.json(user);
     } catch (err) {
         next({apiCode: 500, apiMessage: 'Error retrieving user', ...err });

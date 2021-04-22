@@ -27,7 +27,6 @@ router.post('/', async(req, res, next) => {
 try {
   let plant = await Plant.add(req.body)
   plant = plant.replace('(', "").replace(')', "").replace(/"/g, "").split(',')
-  console.log(plant, "plants router")
    res.status(201).json({data: {
      id: plant[0],
      nickname: plant[1],
@@ -36,8 +35,8 @@ try {
      image: plant[4]
    }})
 } catch (err) {
-      // next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
-      next(err)
+      next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
+      // next(err)
 }
 })
 
