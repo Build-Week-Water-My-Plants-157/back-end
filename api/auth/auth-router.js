@@ -14,7 +14,6 @@ router.post('/register', async (req, res, next) => {
 
         let user = await Users.add(credentials);
         user = user.replace('(', "").split(',')
-        console.log(user, "register router")
         const token = generateToken(user);
         res.status(201).json({data: {
             id: user[0],

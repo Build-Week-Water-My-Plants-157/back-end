@@ -43,7 +43,6 @@ async function addPlantToUser(userId, plantId) {
 }
 
 function add(user) {
-        console.log(user, "in the add model")
         return db('users').insert(user, 'users')
         .then(row => {
             return row[0]
@@ -51,9 +50,6 @@ function add(user) {
         .catch(err => {
             console.log(err)
         })
-
-        // console.log(id, "in the add model");
-        // return findById(id);
 }
 
 async function update(id, changes) {
