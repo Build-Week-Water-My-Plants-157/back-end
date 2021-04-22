@@ -1,6 +1,6 @@
 
 exports.seed = function(knex) {
-  return knex('plants').truncate()
+  return knex('plants').del()
   .then(function () {
       return knex('plants').insert([
         {id: 1, nickname: "Leafy", species: "Super plant", h2o_frequency: "1 week", image: "testurl"},
