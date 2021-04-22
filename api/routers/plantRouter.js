@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Plant = require('../models/plantsModel');
-const {findPlant} = require('../findMiddleware')
+// const {findPlant} = require('../findMiddleware')
 // Get All Plants
 router.get('/', async (req, res, next) => {
   try {
@@ -33,7 +33,7 @@ try {
 })
 
 // Update Plant
-router.put('/:id', findPlant, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const plant = await Plant.update(req.params.id, req.body)
      res.json(req.body)
@@ -43,7 +43,7 @@ router.put('/:id', findPlant, async (req, res, next) => {
 })
 
 // Delete Plant
-router.delete('/:id', findPlant, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const plant = await Plant.remove(req.params.id)
     res.json({message: `Plant with id ${req.params.id} has been deleted`})
