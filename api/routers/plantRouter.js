@@ -32,20 +32,20 @@ try {
 })
 
 // Update Plant
-router.put('/:id',findPlant, async (req, res, next) => {
+router.put('/:id', findPlant, async (req, res, next) => {
   try {
-    const plant = await Plant.findById(req.params.id)
-     res.json(plant)
+    const plant = await Plant.update(req.params.id, req.body)
+     res.json(req.body)
   } catch (err) {
     next({apiCode: 500, apiMessage: 'Error Updating Plant', ...err })
   }
 })
 
 // Delete Plant
-router.delete('/:id',findPlant, async (req, res, next) => {
+router.delete('/:id', findPlant, async (req, res, next) => {
   try {
     const plant = await Plant.remove(req.params.id)
-    res.json(plant)
+    res.json({message: `Plant with id ${req.params.id} has been deleted`})
   } catch (err) {
     next({apiCode: 500, apiMessage: 'Error Deleting Plant', ...err })
   }
