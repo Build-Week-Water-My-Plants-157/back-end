@@ -44,7 +44,7 @@ async function addPlantToUser(userId, plantId) {
 
 function add(user) {
         console.log(user, "in the add model")
-        return db('users').insert(user)
+        return db('users').insert(user, 'users')
         .then(row => {
             return row[0]
         })
