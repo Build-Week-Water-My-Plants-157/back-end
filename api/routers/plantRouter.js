@@ -26,7 +26,7 @@ router.get('/:id',  async (req, res, next) => {
 router.post('/', async(req, res, next) => {
 try {
   let plant = await Plant.add(req.body)
-  plant = plant.replace('(', "").split(',')
+  plant = plant.replace('(', "").replace(')', "").replace(/"/g, "").split(',')
   console.log(plant, "plants router")
    res.status(201).json({data: {
      id: plant[0],
