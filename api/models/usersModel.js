@@ -45,6 +45,7 @@ async function addPlantToUser(userId, plantId) {
 async function add(user) {
     try {
         const [id] = await db('users').insert(user);
+        console.log(id);
         return findById(id);
     } catch (err) {
         console.log(err)
