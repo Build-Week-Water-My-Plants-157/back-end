@@ -7,7 +7,8 @@ async function findAll() {
 
 async function findById(id) {
     const res = await db.select('u.id', 'u.username', 'u.phone_number', 'p.id as plantId', 'nickname', 'species', 'h2o_frequency', 'image')
-    .from('users as u').leftJoin('users_plants as u_p', 'u_p.user_id', 'u.id')
+    .from('users as u')
+    .join('users_plants as u_p', 'u_p.user_id', 'u.id')
     .leftJoin('plants as p', 'plantId', 'u_p.plant_id').
     where({'u.id': id})
     .groupBy('plantId')
