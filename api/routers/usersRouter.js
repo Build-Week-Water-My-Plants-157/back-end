@@ -1,7 +1,10 @@
 const router = require('express').Router();
 const Users = require('../models/usersModel');
-const {find} = require('../findMiddleware');
-const { findById } = require('../models/plantsModel');
+const { restricted } = require('../auth/auth-middleware');
+// const {find} = require('../findMiddleware');
+// const { findById } = require('../models/plantsModel');
+
+
 // Get all users
 router.get('/', async (req, res, next) => {
     try {
@@ -15,7 +18,7 @@ router.get('/', async (req, res, next) => {
 
 
 // Get user by ID
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', restricted, async (req, res, next) => {
     const id = req.params.id
     if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
@@ -30,18 +33,19 @@ router.get('/:id', async (req, res, next) => {
 })
 
 
-// Create User
-router.post('/', async (req, res, next) => {
-    try {
-        const user = await Users.add(req.body)
-        res.json(user)
-    } catch (err) {
-        next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
-    }
-})
+// // Create User
+// MOVED TO AUTH FOLDER
+// router.post('/', async (req, res, next) => {
+//     try {
+//         const user = await Users.add(req.body)
+//         res.json(user)
+//     } catch (err) {
+//         next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
+//     }
+// })
 
 // Add plant to User
-router.post('/:id', async (req, res, next) => {
+router.post('/:id', restricted, async (req, res, next) => {
     const id = req.params.id
     if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
@@ -56,7 +60,7 @@ router.post('/:id', async (req, res, next) => {
 })
 
 // Delete User
-router.delete('/:id' ,find,  async (req, res, next) => {
+router.delete('/:id' , restricted, async (req, res, next) => {
     const id = parseInt(req.params.id)
    if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
@@ -70,7 +74,7 @@ next({apiCode: 500, apiMessage: 'Error Deleting User.', ...err})}
 })
 
 // Delete Users Plant
-router.delete('/:id/plant',  async (req, res, next) => {
+router.delete('/:id/plant', restricted, async (req, res, next) => {
     const id = parseInt(req.params.id)
    if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
@@ -85,7 +89,7 @@ router.delete('/:id/plant',  async (req, res, next) => {
 })
 
 // Update User
-router.put('/:id',find,  async (req, res, next) => {
+router.put('/:id', restricted, async (req, res, next) => {
     const id = parseInt(req.params.id)
     console.log(req.body)
     if(!id) {
@@ -94,8 +98,7 @@ router.put('/:id',find,  async (req, res, next) => {
 
     try {
         const user = await Users.update(id, req.body)
-        console.log(user)
-        res.json(user)
+        res.json(req.body)
     } catch (err) {
         next({apiCode: 500, apiMessage: 'Error Updating User.', ...err})}
 

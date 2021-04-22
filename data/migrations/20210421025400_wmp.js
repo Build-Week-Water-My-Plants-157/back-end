@@ -4,7 +4,7 @@ exports.up = function(knex) {
         tbl.increments();
         tbl.string('username').unique().notNullable();
         tbl.string('password').notNullable();
-        tbl.string('phone_number').notNullable();
+        tbl.string('phone_number')
     })
     .createTable('plants', tbl => {
         tbl.increments();

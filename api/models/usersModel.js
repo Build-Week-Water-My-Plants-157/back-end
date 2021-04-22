@@ -22,6 +22,10 @@ async function findById(id) {
     return newObj;
 }
 
+async function findBy(filter) {
+    return db('users').where(filter);
+}
+
 async function findPlants(user_id) {
     const res = db('plants as p')
     .join('users_plants as up', 'up.plant_id', 'p.id')
@@ -59,6 +63,7 @@ async function removePlantFromUser(userId, plantId) {
 module.exports = {
     findAll,
     findById,
+    findBy,
     add,
     update,
     remove,
