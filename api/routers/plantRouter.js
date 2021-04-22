@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // Get Plant by ID
-router.get('/:id',findPlant,  async (req, res, next) => {
+router.get('/:id',  async (req, res, next) => {
   try {
     const plant = await Plant.findById(req.params.id)
      res.json(plant)
@@ -27,7 +27,8 @@ try {
   const plant = await Plant.add(req.body)
    res.status(201).json(plant)
 } catch (err) {
-      next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
+      // next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
+      next(err)
 }
 })
 

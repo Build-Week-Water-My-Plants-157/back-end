@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Users = require('../models/usersModel');
-const {find} = require('../findMiddleware')
+const {find} = require('../findMiddleware');
+const { findById } = require('../models/plantsModel');
 // Get all users
 router.get('/', async (req, res, next) => {
     try {
@@ -14,7 +15,7 @@ router.get('/', async (req, res, next) => {
 
 
 // Get user by ID
-router.get('/:id',   async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     const id = req.params.id
     if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
@@ -24,7 +25,7 @@ router.get('/:id',   async (req, res, next) => {
         res.json(user);
     } catch (err) {
 
-        next({apiCode: 500, apiMessage: 'Error retrieving user.', ...err });
+        next({apiCode: 500, apiMessage: 'Error retrieving user', ...err });
     }
 })
 
@@ -34,6 +35,21 @@ router.post('/', async (req, res, next) => {
     try {
         const user = await Users.add(req.body)
         res.json(user)
+    } catch (err) {
+        next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
+    }
+})
+
+// Add plant to User
+router.post('/:id', async (req, res, next) => {
+    const id = req.params.id
+    if(!id) {
+        next({apiCode: 404, apiMessage: "User Not Found."})
+    }
+    try {
+        const addedPlant = await Users.addPlantToUser(req.params.id, req.body.plant_id)
+        const user = await Users.findById(id, {});
+        res.json(user);
     } catch (err) {
         next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
     }
@@ -51,6 +67,21 @@ router.delete('/:id' ,find,  async (req, res, next) => {
 
     } catch (err) {
 next({apiCode: 500, apiMessage: 'Error Deleting User.', ...err})}
+})
+
+// Delete Users Plant
+router.delete('/:id/plant',  async (req, res, next) => {
+    const id = parseInt(req.params.id)
+   if(!id) {
+        next({apiCode: 404, apiMessage: "User Not Found."})
+    }
+    try {
+        // /api/users/2/plant should return example message: "Plant with id 2 has been deleted from user 2"
+        const deletedPlant = await Users.removePlantFromUser(req.params.id, req.body.plant_id);
+        res.json({message: `Plant with id ${req.body.plant_id} has been deleted from user ${req.params.id}`})
+    } catch (err) {
+        next({apiCode: 500, apiMessage: 'Error Deleting User.', ...err})
+    }
 })
 
 // Update User

@@ -1,4 +1,5 @@
 const db = require('../../data/dbConfig');
+const Plants = require('../models/plantsModel');
 
 async function findAll() {
     return db.select('u.id', 'u.username', 'u.phone_number').from('users as u').orderBy('u.id');
@@ -31,6 +32,11 @@ async function findPlants(user_id) {
     return res;
 }
 
+async function addPlantToUser(userId, plantId) {
+    return db('users_plants as up')
+    .insert({user_id: userId, plant_id: plantId})
+}
+
 async function add(user) {
     const [id] = await db('users').insert(user);
     return findById(id);
@@ -44,10 +50,18 @@ async function remove(id) {
     return db('users').where({id}).del();
 }
 
+async function removePlantFromUser(userId, plantId) {
+    return db('users_plants')
+    .where({user_id: userId, plant_id: plantId})
+    .del();
+}
+
 module.exports = {
     findAll,
     findById,
     add,
     update,
-    remove
+    remove,
+    removePlantFromUser,
+    addPlantToUser
 }
