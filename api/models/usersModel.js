@@ -13,8 +13,6 @@ async function findById(id) {
     where({"u.id": id})
     .first();
 
-    console.log(res, "res")
-
     const newObj = {
         id: res.id,
         username: res.username,
