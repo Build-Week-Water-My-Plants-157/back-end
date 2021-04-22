@@ -31,7 +31,7 @@ async function findPlants(user_id) {
     .join('users_plants as up', 'up.plant_id', 'p.id')
     .join('users as u', 'u.id', 'up.user_id')
     .select('p.id', 'p.nickname', 'p.species', 'p.h2o_frequency', 'p.image')
-    .where({"up.user_id": user_id});
+    .where({'up.user_id': user_id});
 
     return res;
 }

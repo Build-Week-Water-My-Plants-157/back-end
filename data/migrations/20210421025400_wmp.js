@@ -20,15 +20,15 @@ exports.up = function(knex) {
         .notNullable()
         .references('id')
         .inTable('users')
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
         tbl.integer('plant_id')
         .unsigned()
         .notNullable()
         .references('id')
         .inTable('plants')
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
     })
 };
 
