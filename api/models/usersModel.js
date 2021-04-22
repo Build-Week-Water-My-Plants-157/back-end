@@ -42,16 +42,18 @@ async function addPlantToUser(userId, plantId) {
     .insert({user_id: userId, plant_id: plantId})
 }
 
-async function add(user) {
-    try {
+function add(user) {
         console.log(user, "in the add model")
-        return await db('users').insert(user);
+        return db('users').insert(user)
+        .then(row => {
+            return row[0]
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
         // console.log(id, "in the add model");
         // return findById(id);
-    } catch (err) {
-        console.log(err)
-    }
-  
 }
 
 async function update(id, changes) {
