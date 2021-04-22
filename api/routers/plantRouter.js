@@ -18,8 +18,7 @@ router.get('/:id',  async (req, res, next) => {
     const plant = await Plant.findById(req.params.id)
      res.json(plant)
   } catch (err) {
-    // next({apiCode: 500, apiMessage: 'Error Getting Plant by ID', ...err })
-    next(err)
+    next({apiCode: 500, apiMessage: 'Error Getting Plant by ID', ...err })
   }
 })
 
@@ -29,8 +28,8 @@ try {
   const plant = await Plant.add(req.body)
    res.status(201).json(plant)
 } catch (err) {
-      next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
-      // next(err)
+      // next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
+      next(err)
 }
 })
 
