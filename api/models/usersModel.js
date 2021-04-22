@@ -14,12 +14,15 @@ async function findById(id) {
     .groupBy('plantId')
     .first();
 
+    console.log(res, "res")
+
     const newObj = {
         id: res.id,
         username: res.username,
         phone_number: res.phone_number,
         plants: await findPlants(res.id)
     }
+    console.log(newObj, "newObj")
     return newObj;
 }
 
@@ -34,6 +37,7 @@ async function findPlants(user_id) {
     .select('p.id', 'p.nickname', 'p.species', 'p.h2o_frequency', 'p.image')
     .where({'up.user_id': user_id});
 
+    console.log(res, "res in findPlants")
     return res;
 }
 
