@@ -19,6 +19,7 @@ module.exports = {
       afterCreate: (conn, done) => {
         conn.run('PRAGMA foreign_keys = ON', done)
       },
+    }
   },
 
   production: {
@@ -33,7 +34,7 @@ module.exports = {
       max: 10,
       afterCreate: (conn, done) => {
         conn.run('PRAGMA foreign_keys = ON', done)
-      },
+      }
     },
     migrations: {
       directory: "./data/migrations"
@@ -42,5 +43,4 @@ module.exports = {
       directory: "./data/seeds"
     }
   }
-
-};
+}
