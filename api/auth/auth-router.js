@@ -13,12 +13,16 @@ router.post('/register', async (req, res, next) => {
         credentials.password = hash;
 
         const user = await Users.add(credentials);
-        console.log(user)
+        console.log(user.id, "register router")
         const token = generateToken(user);
-        res.status(201).json({data: user, token});
+        res.status(201).json({data: {
+            id: user.id,
+            username: user.username,
+            password: user.password
+        }, token});
     } catch (err) {
-        // next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
-        next(err)
+        next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
+        // next(err) <-- returns typeErrors
     }
 })
 // Log a user in
