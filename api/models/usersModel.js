@@ -46,6 +46,7 @@ function add(user) {
         console.log(user, "in the add model")
         return db('users').insert(user, 'users')
         .then(row => {
+            console.log(row)
             return row[0]
         })
         .catch(err => {
