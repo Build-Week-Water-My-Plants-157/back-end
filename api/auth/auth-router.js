@@ -13,6 +13,7 @@ router.post('/register', async (req, res, next) => {
         credentials.password = hash;
 
         const user = await Users.add(credentials);
+        console.log(user)
         const token = generateToken(user);
         res.status(201).json({data: user, token});
     } catch (err) {
