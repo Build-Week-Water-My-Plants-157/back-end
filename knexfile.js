@@ -14,7 +14,11 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
-    }
+    },
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done)
+      },
   },
 
   production: {
@@ -26,7 +30,10 @@ module.exports = {
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done)
+      },
     },
     migrations: {
       directory: "./data/migrations"
