@@ -18,5 +18,13 @@ async function remove(id) {
 }
 
 async function update(id, changes) {
-    return db('plants').where({id}).update(changes, "*");
+   return db('plants').where({id}).update(changes);
+}
+
+module.exports = {
+    findAll,
+    findById,
+    add,
+    update,
+    remove
 }
