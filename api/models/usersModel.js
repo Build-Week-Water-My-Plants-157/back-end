@@ -43,13 +43,8 @@ async function addPlantToUser(userId, plantId) {
 }
 
 async function add(user) {
-    try {
-        const [id] = await db('users').insert(user);
-        return findById(id);
-    } catch (err) {
-        console.log(err)
-    }
-  
+    const [id] = await db('users').insert(user);
+    return findById(id);
 }
 
 async function update(id, changes) {

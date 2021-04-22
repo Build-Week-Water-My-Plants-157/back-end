@@ -9,12 +9,9 @@ async function findById(id) {
 }
 
 async function add(plant) {
-    try {
-        const [id] = await db('plants').insert(plant);
-        return findById(id);
-    } catch (err) {
-        console.log(err)
-    }
+    const [id] = await db('plants').insert(plant);
+    return findById(id);
+    
    
 }
 
