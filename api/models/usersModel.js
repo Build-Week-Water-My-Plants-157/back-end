@@ -13,7 +13,7 @@ async function findById(id) {
     where({"u.id": id})
     .first()
     .then(row => {
-        console.log(row)
+        console.log(row, "row")
         return row[0]
     })
 
