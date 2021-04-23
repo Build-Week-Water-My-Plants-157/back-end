@@ -6,7 +6,7 @@ async function findAll() {
 };
 
 async function findById(id) {
-    const res = db.select("u.id", "u.username", "u.phone_number")
+    const res = await db.select("u.id", "u.username", "u.phone_number")
     .from("users as u")
     // .join("users_plants as up", "up.user_id", "u.id")
     // .leftJoin("plants as p", "p.id", "up.plant_id").
