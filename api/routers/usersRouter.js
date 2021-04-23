@@ -68,10 +68,10 @@ router.delete('/:id' , restricted, async (req, res, next) => {
    if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
     }
-    const user = await Users.remove(id, {})
+   
     try {
-        res.json(user)
-
+        const user = await Users.remove(id, {})
+        res.json({message: `User with id ${req.params.id} has been deleted`})
     } catch (err) {
 next({apiCode: 500, apiMessage: 'Error Deleting User.', ...err})}
 })
