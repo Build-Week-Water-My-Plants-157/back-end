@@ -14,11 +14,10 @@ async function findById(id) {
     .first()
     .then(row => {
         console.log(row, "row")
-        console.log(row[0], "row[0]")
-        return row[0]
+        return row
     })
 
-    console.log(res,"res in find by id")
+    console.log(await res,"res in find by id")
 
     const newObj = {
         id: res.id,
