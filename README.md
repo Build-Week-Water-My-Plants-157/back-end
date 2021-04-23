@@ -1,4 +1,5 @@
 USER ENDPOINTS
+
 REGISTER A NEW USER
 POST: https://tt157-backend.herokuapp.com/api/auth/register
 
@@ -21,8 +22,8 @@ DELETE A USER
 DELETE: https://tt157-backend.herokuapp.com/api/users/:id
 
 DELETE A USER'S PLANT
-// note that you need to send the plant id in the body similar to "ADD A PLANT TO USER"
 DELETE: https://tt157-backend.herokuapp.com/api/users/:id/plant
+// note that you need to send the plant id in the body similar to "ADD A PLANT TO USER"
 // BE CAREFUL OF HOW SIMILAR ENDPOINT IS TO "DELETE A USER" BC YOU DO NOT WANT TO ACCIDENTALLY DELETE A USER
 
 ---
