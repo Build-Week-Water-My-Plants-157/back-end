@@ -27,6 +27,7 @@ async function findById(id) {
     }
     console.log(newObj, "newObj")
     return newObj;
+    
 }
 
 async function findBy(filter) {
