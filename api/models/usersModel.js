@@ -6,12 +6,10 @@ async function findAll() {
 };
 
 async function findById(id) {
-    const res = await db.select("u.id", "u.username", "u.phone_number")
-    .from("users as u")
-    // .join("users_plants as up", "up.user_id", "u.id")
-    // .leftJoin("plants as p", "p.id", "up.plant_id").
-    .where({id})
-    .first()
+    // const res = await db.select("u.id", "u.username", "u.phone_number")
+    // .from("users as u")
+    // .where({id})
+    // .first()
     // .then(row => {
     //     // console.log(row, "row")
     //     return row
@@ -19,7 +17,21 @@ async function findById(id) {
 
     // console.log(await res,"res in find by id")
 
-    const newObj = {
+    // const newObj = {
+    //     id: res.id,
+    //     username: res.username,
+    //     phone_number: res.phone_number,
+    //     plants: await findPlants(res.id)
+    // }
+    // console.log(newObj, "newObj")
+    // return newObj;
+
+    const res = await db('users')
+    .select('users.id', 'users.username', 'users.phone_number')
+    .where('id', id)
+    .first();
+
+     const newObj = {
         id: res.id,
         username: res.username,
         phone_number: res.phone_number,
