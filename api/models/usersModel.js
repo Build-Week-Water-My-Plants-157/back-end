@@ -6,14 +6,15 @@ async function findAll() {
 };
 
 async function findById(id) {
-    const res = db.select("u.id", "u.username", "u.phone_number", "p.id", "nickname", "species", "h2o_frequency", "image")
+    const res = db.select("u.id", "u.username", "u.phone_number")
     .from("users as u")
-    .join("users_plants as up", "up.user_id", "u.id")
-    .leftJoin("plants as p", "p.id", "up.plant_id").
+    // .join("users_plants as up", "up.user_id", "u.id")
+    // .leftJoin("plants as p", "p.id", "up.plant_id").
     where({"u.id": id})
     .first()
     .then(row => {
         console.log(row, "row")
+        console.log(row[0], "row[0]")
         return row[0]
     })
 
