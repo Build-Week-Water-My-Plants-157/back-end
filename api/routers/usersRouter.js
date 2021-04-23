@@ -54,10 +54,11 @@ router.post('/:id', restricted, async (req, res, next) => {
     }
     try {
         const addedPlant = await Users.addPlantToUser(req.params.id, req.body.plant_id)
-        const user = await Users.findById(id, {});
+        const user = await Users.findById(id);
         res.json(user);
     } catch (err) {
-        next({apiCode: 500, apiMessage: 'Error adding plant to user.', ...err})
+        // next({apiCode: 500, apiMessage: 'Error adding plant to user.', ...err})
+        next(err)
     }
 })
 
