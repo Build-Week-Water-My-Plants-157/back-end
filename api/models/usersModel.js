@@ -20,7 +20,7 @@ async function findById(id) {
     console.log(await res,"res in find by id")
 
     const newObj = {
-        id: res.id,
+        id: await res.id,
         username: res.username,
         phone_number: res.phone_number,
         plants: await findPlants(res.id)
