@@ -16,6 +16,8 @@ async function findById(id) {
         return row[0]
     })
 
+    console.log(res,"res in find by id")
+
     const newObj = {
         id: res.id,
         username: res.username,
