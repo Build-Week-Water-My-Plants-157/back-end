@@ -20,7 +20,7 @@ async function findById(id) {
     console.log(await res,"res in find by id")
 
     const newObj = {
-        id: await res.id,
+        id: res.id,
         username: res.username,
         phone_number: res.phone_number,
         plants: await findPlants(res.id)
@@ -34,7 +34,7 @@ async function findBy(filter) {
 }
 
 async function findPlants(user_id) {
-    const res = db("plants as p")
+    const res = await db("plants as p")
     .join("users_plants as up", "up.plant_id", "p.id")
     .join("users as u", "u.id", "up.user_id")
     .select("p.id", "p.nickname", "p.species", "p.h2o_frequency", "p.image")
