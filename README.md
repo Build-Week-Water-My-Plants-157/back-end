@@ -1,4 +1,5 @@
 USER ENDPOINTS
+
 REGISTER A NEW USER
 POST: https://tt157-backend.herokuapp.com/api/auth/register
 
