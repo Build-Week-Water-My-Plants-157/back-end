@@ -9,8 +9,14 @@ async function findById(id) {
 }
 
 async function add(plant) {
-    const [id] = await db('plants').insert(plant);
-    return findById(id);
+    return db('plants').insert(plant, 'plants')
+    .then(row => {
+        return row[0]
+    })
+    .catch(err => {
+        console.log(err)
+    })
+   
 }
 
 async function remove(id) {

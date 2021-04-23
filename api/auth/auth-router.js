@@ -12,12 +12,17 @@ router.post('/register', async (req, res, next) => {
         const hash = bcrypt.hashSync(credentials.password, 8)
         credentials.password = hash;
 
-        const user = await Users.add(credentials);
+        let user = await Users.add(credentials);
+        user = user.replace('(', "").split(',')
         const token = generateToken(user);
-        res.status(201).json({data: user, token});
+        res.status(201).json({data: {
+            id: user[0],
+            username: user[1],
+            password: user[2]
+        }, token});
     } catch (err) {
-        // next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
-        next(err)
+        next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
+        // next(err) <-- returns typeErrors
     }
 })
 // Log a user in

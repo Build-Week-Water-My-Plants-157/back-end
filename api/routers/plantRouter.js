@@ -7,7 +7,8 @@ router.get('/', async (req, res, next) => {
     const plant = await Plant.findAll()
      res.json(plant)
   } catch (err) {
-    next({apiCode: 500, apiMessage: 'Error Getting Plants', ...err })
+    // next({apiCode: 500, apiMessage: 'Error Getting Plants', ...err })
+    next(err)
   }
 })
 
@@ -24,11 +25,18 @@ router.get('/:id',  async (req, res, next) => {
 // Create Plant
 router.post('/', async(req, res, next) => {
 try {
-  const plant = await Plant.add(req.body)
-   res.status(201).json(plant)
+  let plant = await Plant.add(req.body)
+  plant = plant.replace('(', "").replace(')', "").replace(/"/g, "").split(',')
+   res.status(201).json({data: {
+     id: plant[0],
+     nickname: plant[1],
+     species: plant[2],
+     h2o_frequency: plant[3],
+     image: plant[4]
+   }})
 } catch (err) {
-      // next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
-      next(err)
+      next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
+      // next(err)
 }
 })
 

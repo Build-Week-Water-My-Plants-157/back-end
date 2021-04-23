@@ -24,11 +24,13 @@ router.get('/:id', restricted, async (req, res, next) => {
         next({apiCode: 404, apiMessage: "User Not Found."})
     }
     try {
-        const user = await Users.findById(id, {});
+        console.log(id, "get id router")
+        const user = await Users.findById(id);
+        console.log(user, "get id router")
         res.json(user);
     } catch (err) {
-
         next({apiCode: 500, apiMessage: 'Error retrieving user', ...err });
+        // next(err)
     }
 })
 
@@ -52,10 +54,11 @@ router.post('/:id', restricted, async (req, res, next) => {
     }
     try {
         const addedPlant = await Users.addPlantToUser(req.params.id, req.body.plant_id)
-        const user = await Users.findById(id, {});
+        const user = await Users.findById(id);
         res.json(user);
     } catch (err) {
-        next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
+        next({apiCode: 500, apiMessage: 'Error adding plant to user.', ...err})
+        // next(err)
     }
 })
 
