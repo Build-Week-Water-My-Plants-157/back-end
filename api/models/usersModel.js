@@ -10,7 +10,7 @@ async function findById(id) {
     .from("users as u")
     // .join("users_plants as up", "up.user_id", "u.id")
     // .leftJoin("plants as p", "p.id", "up.plant_id").
-    where({"u.id": id})
+    .where({"u.id": id})
     .first()
     .then(row => {
         console.log(row, "row")
