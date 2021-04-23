@@ -39,9 +39,13 @@ async function findPlants(user_id) {
     .join("users as u", "u.id", "up.user_id")
     .select("p.id", "p.nickname", "p.species", "p.h2o_frequency", "p.image")
     .where({"up.user_id": user_id})
-    .groupBy("p.id");
+    .groupBy("p.id")
+    .then(row => {
+        console.log(row, "findPlants row")
+        return row
+    });
 
-    console.log(res, "res in findPlants")
+    console.log(await res, "res in findPlants")
     return res;
 }
 
