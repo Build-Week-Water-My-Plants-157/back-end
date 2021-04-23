@@ -12,10 +12,10 @@ async function findById(id) {
     // .leftJoin("plants as p", "p.id", "up.plant_id").
     .where({id})
     .first()
-    .then(row => {
-        // console.log(row, "row")
-        return row
-    })
+    // .then(row => {
+    //     // console.log(row, "row")
+    //     return row
+    // })
 
     // console.log(await res,"res in find by id")
 
