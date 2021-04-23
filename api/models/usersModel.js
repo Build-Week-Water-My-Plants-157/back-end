@@ -27,7 +27,7 @@ async function findById(id) {
     // return newObj;
 
     const res = await db('users')
-    .select('users.id', 'users.username', 'users.phone_number')
+    .select('id', 'username', 'phone_number')
     .where('id', id)
     .first();
 
