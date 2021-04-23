@@ -13,11 +13,11 @@ async function findById(id) {
     .where({"u.id": id})
     .first()
     .then(row => {
-        console.log(row, "row")
+        // console.log(row, "row")
         return row
     })
 
-    console.log(await res,"res in find by id")
+    // console.log(await res,"res in find by id")
 
     const newObj = {
         id: res.id,
@@ -41,11 +41,11 @@ async function findPlants(user_id) {
     .where({"up.user_id": user_id})
     .groupBy("p.id")
     .then(row => {
-        console.log(row, "findPlants row")
+        // console.log(row, "findPlants row")
         return row
     });
 
-    console.log(await res, "res in findPlants")
+    // console.log(await res, "res in findPlants")
     return res;
 }
 
