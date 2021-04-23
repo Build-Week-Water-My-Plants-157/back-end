@@ -3,9 +3,11 @@ const Users = require('../models/usersModel');
 const {jwtSecret} = require('../secrets');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { requireBody } = require('../routers/routersMiddleware');
+const { checkUsernameExists, checkUsernameForFree, requirePassword } = require('./auth-middleware');
 
 // Register a User
-router.post('/register', async (req, res, next) => {
+router.post('/register', requireBody, requirePassword, checkUsernameForFree, async (req, res, next) => {
     const credentials = req.body
 
     try {
@@ -22,11 +24,11 @@ router.post('/register', async (req, res, next) => {
         }, token});
     } catch (err) {
         next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
-        // next(err) <-- returns typeErrors
+        // next(err)
     }
 })
 // Log a user in
-router.post('/login', async (req, res, next) => {
+router.post('/login', requireBody, requirePassword, checkUsernameExists, async (req, res, next) => {
     const {username, password} = req.body;
 
     try {

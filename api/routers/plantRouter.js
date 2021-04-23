@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const Plant = require('../models/plantsModel');
+const { requireBody } = require('./routersMiddleware')
 // const {findPlant} = require('../findMiddleware')
+
 // Get All Plants
 router.get('/', async (req, res, next) => {
   try {
@@ -23,7 +25,7 @@ router.get('/:id',  async (req, res, next) => {
 })
 
 // Create Plant
-router.post('/', async(req, res, next) => {
+router.post('/', requireBody, async(req, res, next) => {
 try {
   let plant = await Plant.add(req.body)
   plant = plant.replace('(', "").replace(')', "").replace(/"/g, "").split(',')
@@ -41,7 +43,7 @@ try {
 })
 
 // Update Plant
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireBody, async (req, res, next) => {
   try {
     const plant = await Plant.update(req.params.id, req.body)
      res.json(req.body)

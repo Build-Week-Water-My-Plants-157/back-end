@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const Users = require('../models/usersModel');
 const { restricted } = require('../auth/auth-middleware');
+const { requireBody } = require('./routersMiddleware')
+
 // const {find} = require('../findMiddleware');
 // const { findById } = require('../models/plantsModel');
 
@@ -47,7 +49,7 @@ router.get('/:id', restricted, async (req, res, next) => {
 // })
 
 // Add plant to User
-router.post('/:id', restricted, async (req, res, next) => {
+router.post('/:id', requireBody, restricted, async (req, res, next) => {
     const id = req.params.id
     if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
@@ -77,7 +79,7 @@ next({apiCode: 500, apiMessage: 'Error Deleting User.', ...err})}
 })
 
 // Delete Users Plant
-router.delete('/:id/plant', restricted, async (req, res, next) => {
+router.delete('/:id/plant', requireBody, restricted, async (req, res, next) => {
     const id = parseInt(req.params.id)
    if(!id) {
         next({apiCode: 404, apiMessage: "User Not Found."})
@@ -92,7 +94,7 @@ router.delete('/:id/plant', restricted, async (req, res, next) => {
 })
 
 // Update User
-router.put('/:id', restricted, async (req, res, next) => {
+router.put('/:id', requireBody, restricted, async (req, res, next) => {
     const id = parseInt(req.params.id)
     console.log(req.body)
     if(!id) {
