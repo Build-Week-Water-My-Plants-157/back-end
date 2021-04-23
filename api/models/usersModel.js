@@ -48,7 +48,7 @@ async function findPlants(user_id) {
 }
 
 async function addPlantToUser(userId, plantId) {
-    return db("users_plants as up")
+    return db("users_plants")
     .insert({user_id: userId, plant_id: plantId})
 }
 
