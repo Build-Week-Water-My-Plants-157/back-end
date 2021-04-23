@@ -25,7 +25,7 @@ router.get('/:id', restricted, async (req, res, next) => {
     }
     try {
         console.log(id, "get id router")
-        const [user] = await Users.findById(id);
+        const user = await Users.findById(id);
         console.log(user, "get id router")
         res.json(user);
     } catch (err) {

@@ -6,10 +6,10 @@ async function findAll() {
 };
 
 async function findById(id) {
-    // const res = await db.select("u.id", "u.username", "u.phone_number")
-    // .from("users as u")
-    // .where({id})
-    // .first()
+    const res = await db.select("u.id", "u.username", "u.phone_number")
+    .from("users as u")
+    .where({id})
+    .first()
     // .then(row => {
     //     // console.log(row, "row")
     //     return row
@@ -17,31 +17,14 @@ async function findById(id) {
 
     // console.log(await res,"res in find by id")
 
-    // const newObj = {
-    //     id: res.id,
-    //     username: res.username,
-    //     phone_number: res.phone_number,
-    //     plants: await findPlants(res.id)
-    // }
-    // console.log(newObj, "newObj")
-    // return newObj;
-
-    return db('users')
-    .select('id', 'username', 'phone_number')
-    .where('id', id)
-    .first();
-
-    //  const newObj = {
-    //     id: res.id,
-    //     username: res.username,
-    //     phone_number: res.phone_number,
-    //     plants: await findPlants(res.id)
-    // }
-    // console.log(newObj, "newObj")
-    // return newObj;
-
-
-
+    const newObj = {
+        id: res.id,
+        username: res.username,
+        phone_number: res.phone_number,
+        plants: await findPlants(res.id)
+    }
+    console.log(newObj, "newObj")
+    return newObj;
 }
 
 async function findBy(filter) {
