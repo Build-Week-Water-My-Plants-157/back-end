@@ -9,7 +9,7 @@ async function findById(id) {
     const res = await db.select("u.id", "u.username", "u.phone_number")
     .from("users as u")
     .where({id})
-    .first()
+    // .first()
     // .then(row => {
     //     // console.log(row, "row")
     //     return row
