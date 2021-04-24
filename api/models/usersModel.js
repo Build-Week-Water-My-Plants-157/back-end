@@ -9,7 +9,7 @@ async function findById(id) {
     const res = await db.select("u.id", "u.username", "u.phone_number")
     .from("users as u")
     .where({id})
-    // .first()
+    .first()
     // .then(row => {
     //     // console.log(row, "row")
     //     return row
@@ -53,15 +53,17 @@ async function addPlantToUser(userId, plantId) {
 }
 
 async function add(user) {
-        return await db("users").insert(user) // used to be (user, "users")
-        .then(row => {
-            let id = row[0]
-            return findById(id)
-            // used to be return row[0]
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        const id = db("users").insert(user) // used to be (user, "users")
+        console.log(id)
+        return await findById(id)
+        // .then(row => {
+        //     let id = row[0]
+        //     return findById(id)
+        //     // used to be return row[0]
+        // })
+        // .catch(err => {
+        //     console.log(err)
+        // })
 }
 
 async function update(id, changes) {
