@@ -15,15 +15,15 @@ router.post('/register', requireBody, requirePassword, checkUsernameForFree, asy
         credentials.password = hash;
 
         let user = await Users.add(credentials);
-        console.log(user)
-        // user = user.replace('(', "").replace(/"/g, "").split(',')
+        // console.log(user)
+        user = user.replace('(', "").replace(/"/g, "").split(',')
         const token = generateToken(user);
-        // res.status(201).json({data: {
-        //     id: user[0],
-        //     username: user[1],
-        //     password: user[2]
-        // }, token});
-        res.status(201).json({user, token})
+        res.status(201).json({data: {
+            id: user[0],
+            username: user[1],
+            password: user[2]
+        }, token});
+        // res.status(201).json({user, token})
     } catch (err) {
         // next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
         next(err)
