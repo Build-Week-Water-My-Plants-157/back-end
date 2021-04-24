@@ -53,10 +53,10 @@ async function addPlantToUser(userId, plantId) {
 }
 
 async function add(user) {
-        return db("users").insert(user) // used to be (user, "users")
+        return await db("users").insert(user) // used to be (user, "users")
         .then(row => {
             let id = row[0]
-            return await findById(id)
+            return findById(id)
             // used to be return row[0]
         })
         .catch(err => {
