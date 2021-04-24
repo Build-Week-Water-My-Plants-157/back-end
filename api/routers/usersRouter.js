@@ -26,9 +26,9 @@ router.get('/:id', restricted, async (req, res, next) => {
         next({apiCode: 404, apiMessage: "User Not Found."})
     }
     try {
-        console.log(id, "get id router")
+        // console.log(id, "get id router")
         const user = await Users.findById(id);
-        console.log(user, "get id router")
+        // console.log(user, "get id router")
         res.json(user);
     } catch (err) {
         next({apiCode: 500, apiMessage: 'Error retrieving user', ...err });
@@ -57,10 +57,10 @@ router.post('/:id', requireBody, restricted, async (req, res, next) => {
     try {
         const addedPlant = await Users.addPlantToUser(req.params.id, req.body.plant_id)
         const user = await Users.findById(id);
-        res.json(user);
+        res.status(201).json(user);
     } catch (err) {
-        next({apiCode: 500, apiMessage: 'Error adding plant to user.', ...err})
-        // next(err)
+        // next({apiCode: 500, apiMessage: 'Error adding plant to user.', ...err})
+        next(err)
     }
 })
 
@@ -96,7 +96,7 @@ router.delete('/:id/plant', requireBody, restricted, async (req, res, next) => {
 // Update User
 router.put('/:id', requireBody, restricted, async (req, res, next) => {
     const id = parseInt(req.params.id)
-    console.log(req.body)
+    // console.log(req.body)
     if(!id) {
  next({apiCode: 400, apiMessage: 'Provide ID', ...err})
 }

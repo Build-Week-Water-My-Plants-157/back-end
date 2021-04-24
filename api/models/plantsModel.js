@@ -9,9 +9,10 @@ async function findById(id) {
 }
 
 async function add(plant) {
-    return db('plants').insert(plant, 'plants')
+    return db('plants').insert(plant) // used to be (plant, "plants")
     .then(row => {
-        return row[0]
+        let id = row[0]
+        return findById(id)
     })
     .catch(err => {
         console.log(err)
