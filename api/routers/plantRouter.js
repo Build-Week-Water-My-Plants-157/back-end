@@ -39,8 +39,8 @@ try {
    }})
   // res.status(201).json(plant)
 } catch (err) {
-      next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
-      // next(err)
+      // next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
+      next(err)
 }
 })
 
