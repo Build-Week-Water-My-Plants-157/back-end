@@ -23,7 +23,7 @@ async function findById(id) {
         phone_number: res.phone_number,
         plants: await findPlants(res.id)
     }
-    // console.log(newObj, "newObj")
+    console.log(newObj, "newObj")
     return newObj;
 }
 
