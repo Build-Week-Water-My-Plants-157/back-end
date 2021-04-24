@@ -15,7 +15,7 @@ router.post('/register', requireBody, requirePassword, checkUsernameForFree, asy
         credentials.password = hash;
 
         let user = await Users.add(credentials);
-        console.log(user)
+        // console.log(user)
         user = user.replace('(', "").replace(/"/g, "").split(',')
         const token = generateToken(user);
         res.status(201).json({data: {
