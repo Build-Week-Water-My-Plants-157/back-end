@@ -25,8 +25,8 @@ router.post('/register', requireBody, requirePassword, checkUsernameForFree, asy
         // }, token});
         res.status(201).json({user, token})
     } catch (err) {
-        // next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
-        next(err)
+        next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
+        // next(err)
     }
 })
 // Log a user in
@@ -42,8 +42,8 @@ router.post('/login', requireBody, requirePassword, checkUsernameExists, async (
             res.status(404).json({message: "Invalid login credentials"})
         }
     } catch (err) {
-        // next({apiCode: 500, apiMessage: 'Error Logging in User.', ...err})
-        next(err)
+        next({apiCode: 500, apiMessage: 'Error Logging in User.', ...err})
+        // next(err)
     }
 })
 
