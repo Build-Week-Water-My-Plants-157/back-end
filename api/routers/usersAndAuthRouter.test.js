@@ -50,6 +50,7 @@ describe("users router tests", () => {
             expect(response.body.username).toBe("Nico")
             expect(response.status).toEqual(200)
             expect(response.type).toBe('application/json');
+            expect(response.body.plants.length).not.toBe(0)
         })
 
     })

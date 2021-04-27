@@ -52,17 +52,23 @@ async function addPlantToUser(userId, plantId) {
     .insert({user_id: userId, plant_id: plantId})
 }
 
-function add(user) {
-        return db("users").insert(user, "users") // used to be (user, "users")
-        .then(row => {
-            // let id = row[0]
-            // return findById(id)
-            return row[0];
-            // used to be return row[0]
-        })
-        .catch(err => {
-            console.log(err)
-        })
+async function add(user) {
+        // return await db("users").insert(user, "users") // used to be (user, "users")
+        // .then(row => {
+        //     let id = row[0]
+        //     return findById(id)
+        //     // return row[0];
+        //     // used to be return row[0]
+        // })
+        // .catch(err => {
+        //     console.log(err)
+        // })
+        const [id] = await db('users')
+        .returning('id')
+        .insert(user)
+        // console.log(id)
+
+        return findById(id);
 }
 
 async function update(id, changes) {

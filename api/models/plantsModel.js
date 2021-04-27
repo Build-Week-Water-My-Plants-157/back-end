@@ -9,16 +9,20 @@ async function findById(id) {
 }
 
 async function add(plant) {
-    return db('plants').insert(plant, "plants") // used to be (plant, "plants")
-    .then(row => {
-        return row[0]
-        // let id = row[0]
-        // return findById(id)
-    })
-    .catch(err => {
-        console.log(err)
-    })
-   
+    // return db('plants').insert(plant, "plants") // used to be (plant, "plants")
+    // .then(row => {
+    //     return row[0]
+    //     // let id = row[0]
+    //     // return findById(id)
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
+   const [id] = await db('plants')
+   .returning('id')
+   .insert(plant)
+
+   return findById(id);
 }
 
 async function remove(id) {
