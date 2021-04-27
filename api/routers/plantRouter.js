@@ -28,16 +28,16 @@ router.get('/:id',  async (req, res, next) => {
 router.post('/', requireBody, async(req, res, next) => {
 try {
   let plant = await Plant.add(req.body)
-  plant = plant.replace('(', "").replace(')', "").replace(/"/g, "").split(',')
+  // plant = plant.replace('(', "").replace(')', "").replace(/"/g, "").split(',')
   // console.log(plant)
-   res.status(201).json({data: {
-     id: plant[0],
-     nickname: plant[1],
-     species: plant[2],
-     h2o_frequency: plant[3],
-     image: plant[4]
-   }})
-  // res.status(201).json(plant)
+  //  res.status(201).json({data: {
+  //    id: plant[0],
+  //    nickname: plant[1],
+  //    species: plant[2],
+  //    h2o_frequency: plant[3],
+  //    image: plant[4]
+  //  }})
+  res.status(201).json(plant)
 } catch (err) {
       // next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
       next(err)
