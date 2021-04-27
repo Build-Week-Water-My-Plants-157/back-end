@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Plant = require('../models/plantsModel');
 const { requireBody } = require('./routersMiddleware')
-// const {findPlant} = require('../findMiddleware')
+
 
 // Get All Plants
 router.get('/', async (req, res, next) => {
@@ -9,8 +9,8 @@ router.get('/', async (req, res, next) => {
     const plant = await Plant.findAll()
      res.json(plant)
   } catch (err) {
-    // next({apiCode: 500, apiMessage: 'Error Getting Plants', ...err })
-    next(err)
+    next({apiCode: 500, apiMessage: 'Error Getting Plants', ...err })
+    // next(err)
   }
 })
 
@@ -39,8 +39,8 @@ try {
   //  }})
   res.status(201).json(plant)
 } catch (err) {
-      // next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
-      next(err)
+      next({apiCode: 500, apiMessage: 'Error Creating Plant', ...err })
+      // next(err)
 }
 })
 

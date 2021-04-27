@@ -29,6 +29,8 @@ async function checkUsernameForFree(req, res, next) {
     try {
       const username = req.body.username;
       const user = await db.select("username").from('users').where({username})
+      console.log(user)
+      console.log(username)
       if (user.length >= 1) {
         res.status(422).json({message: "Username taken"})
       } else {
