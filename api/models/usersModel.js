@@ -72,6 +72,9 @@ async function add(user) {
 }
 
 async function update(id, changes) {
+    const hash = bcrypt.hashSync(changes.password, 8)
+    changes.password = hash;
+
     const [updatedId] = await db("users").where({id}).update({
         username: changes.username,
         phone_number: changes.phone_number,
@@ -79,8 +82,7 @@ async function update(id, changes) {
     }).returning('id');
 
     const updatedUser = await db('users').where({'id': updatedId}).first()
-    const hash = bcrypt.hashSync(updatedUser.password, 8)
-    updatedUser.password = hash;
+ 
     console.log(updatedUser)
 
     return updatedUser;
