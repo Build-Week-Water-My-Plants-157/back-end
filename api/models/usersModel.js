@@ -6,7 +6,7 @@ async function findAll() {
 };
 
 async function findById(id) {
-    const res = await db.select("u.id", "u.username", "u.phone_number", 'password')
+    const res = await db.select("u.id", "u.username", "u.phone_number", 'u.password')
     .from("users as u")
     .where({id})
     .first()
@@ -21,6 +21,7 @@ async function findById(id) {
         id: res.id,
         username: res.username,
         phone_number: res.phone_number,
+        password: res.password,
         plants: await findPlants(res.id)
     }
     // console.log(newObj, "newObj")
