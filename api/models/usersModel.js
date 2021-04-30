@@ -77,12 +77,13 @@ async function update(id, changes) {
         phone_number: changes.phone_number,
         password: changes.password
     }).returning('id');
-    console.log(updatedId);
-    const hash = bcrypt.hashSync(updatedId.password, 8)
-    updatedId.password = hash;
-    console.log(updatedId);
 
-    return db('users').where({'id': updatedId}).first()
+    const updatedUser = await db('users').where({'id': updatedId}).first()
+    const hash = bcrypt.hashSync(updatedUser.password, 8)
+    updatedUser.password = hash;
+    console.log(updatedUser)
+
+    return updatedUser;
 }
 
 async function remove(id) {
