@@ -100,12 +100,11 @@ router.put('/:id', requireBody, restricted, async (req, res, next) => {
 
     try {
         const user = await Users.update(id, req.body)
-        console.log(id, "update user router ID")
-        console.log(user, "update user router");
         res.json(user)
     } catch (err) {
-        // next({apiCode: 500, apiMessage: 'Error Updating User.', ...err})}
-        next(err)}
+        next({apiCode: 500, apiMessage: 'Error Updating User.', ...err})
+    }
+        // next(err)}
     })
 
 module.exports = router;

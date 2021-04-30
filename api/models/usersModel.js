@@ -77,9 +77,6 @@ async function update(id, changes) {
         phone_number: changes.phone_number,
         password: changes.password
     }).returning('id');
-    console.log(changes);
-    console.log(id, "update id")
-    console.log(updatedId, "the UPDATED ID")
 
     return db('users').where({'id': updatedId}).first()
 }
