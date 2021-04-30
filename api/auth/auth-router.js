@@ -25,8 +25,8 @@ router.post('/register', requireBody, requirePassword, checkUsernameForFree, asy
         // }, token});
         res.status(201).json({user, token})
     } catch (err) {
-        next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
-        // next(err)
+        // next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
+        next(err)
     }
 })
 // Log a user in
@@ -35,6 +35,7 @@ router.post('/login', requireBody, requirePassword, checkUsernameExists, async (
 
     try {
         const [user] = await Users.findBy({username})
+        // console.log(user, username, password, "user, username, password")
         if (user && bcrypt.compareSync(password, user.password)) {
             const token = generateToken(user);
             res.status(200).json({message: `${username} is back!`, token: token})

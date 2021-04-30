@@ -1,5 +1,5 @@
 const db = require("../../data/dbConfig");
-const Plants = require("../models/plantsModel");
+const bcrypt = require('bcrypt');
 
 async function findAll() {
     return db.select("u.id", "u.username", "u.phone_number").from("users as u").orderBy("u.id");
@@ -66,13 +66,26 @@ async function add(user) {
         const [id] = await db('users')
         .returning('id')
         .insert(user)
-        // console.log(id)
+        console.log(id)
 
         return findById(id);
 }
 
 async function update(id, changes) {
-    return db("users").where({id}).update(changes, "*");
+    const hash = bcrypt.hashSync(changes.password, 8)
+    changes.password = hash;
+
+    const [updatedId] = await db("users").where({id}).update({
+        username: changes.username,
+        phone_number: changes.phone_number,
+        password: changes.password
+    }).returning('id');
+
+    const updatedUser = await db('users').where({'id': updatedId}).first()
+ 
+    // console.log(updatedUser)
+
+    return updatedUser;
 }
 
 async function remove(id) {
