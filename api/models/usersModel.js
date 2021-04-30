@@ -6,7 +6,7 @@ async function findAll() {
 };
 
 async function findById(id) {
-    const res = await db.select("u.id", "u.username", "u.phone_number, 'u.password")
+    const res = await db.select("u.id", "u.username", "u.phone_number", "u.password")
     .from("users as u")
     .where({id})
     .first()
@@ -67,7 +67,7 @@ async function add(user) {
         const [id] = await db('users')
         .returning('id')
         .insert(user)
-        // console.log(id)
+        console.log(id)
 
         return findById(id);
 }
