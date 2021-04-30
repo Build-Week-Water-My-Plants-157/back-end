@@ -71,8 +71,17 @@ async function add(user) {
         return findById(id);
 }
 
-function update(id, changes) {
-    return db("users").where({id}).update(changes).returning('id');
+async function update(id, changes) {
+    const updatedId = await db("users").where({id}).update({
+        username: changes.username,
+        phone_number: changes.phone_number,
+        password: changes.password
+    }).returning('id');
+
+    console.log(id, "update id")
+    console.log(updatedId, "the UPDATED ID")
+
+    return db('users').where({updatedId}).first()
 }
 
 async function remove(id) {
