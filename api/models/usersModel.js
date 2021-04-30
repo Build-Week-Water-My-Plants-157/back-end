@@ -72,7 +72,7 @@ async function add(user) {
 }
 
 function update(id, changes) {
-    return db("users").where({id}).update(changes);
+    return db("users").where({id}).update(changes).returning('id');
 }
 
 async function remove(id) {
