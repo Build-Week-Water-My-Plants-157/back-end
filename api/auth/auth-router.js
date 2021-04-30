@@ -25,8 +25,8 @@ router.post('/register', requireBody, requirePassword, checkUsernameForFree, asy
         // }, token});
         res.status(201).json({user, token})
     } catch (err) {
-        next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
-        // next(err)
+        // next({apiCode: 500, apiMessage: 'Error Creating User.', ...err})
+        next(err)
     }
 })
 // Log a user in
