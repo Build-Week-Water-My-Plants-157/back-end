@@ -77,9 +77,10 @@ async function update(id, changes) {
         phone_number: changes.phone_number,
         password: changes.password
     }).returning('id');
-
-    const hash = bcrypt.hashSync(changes.password, 8)
-    changes.password = hash;
+    console.log(updatedId);
+    const hash = bcrypt.hashSync(updatedId.password, 8)
+    updatedId.password = hash;
+    console.log(updatedId);
 
     return db('users').where({'id': updatedId}).first()
 }
