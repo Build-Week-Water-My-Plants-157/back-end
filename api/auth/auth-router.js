@@ -35,7 +35,7 @@ router.post('/login', requireBody, requirePassword, checkUsernameExists, async (
 
     try {
         const [user] = await Users.findBy({username})
-        console.log(user, username, password, "user, username, password")
+        // console.log(user, username, password, "user, username, password")
         if (user && bcrypt.compareSync(password, user.password)) {
             const token = generateToken(user);
             res.status(200).json({message: `${username} is back!`, token: token})

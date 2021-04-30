@@ -83,7 +83,7 @@ async function update(id, changes) {
 
     const updatedUser = await db('users').where({'id': updatedId}).first()
  
-    console.log(updatedUser)
+    // console.log(updatedUser)
 
     return updatedUser;
 }
