@@ -100,6 +100,7 @@ router.put('/:id', requireBody, restricted, async (req, res, next) => {
 
     try {
         const user = await Users.update(id, req.body)
+        console.log(id, "update user router ID")
         console.log(user, "update user router");
         res.json(req.body)
     } catch (err) {
