@@ -104,9 +104,8 @@ router.put('/:id', requireBody, restricted, async (req, res, next) => {
         console.log(user, "update user router");
         res.json(req.body)
     } catch (err) {
-        next({apiCode: 500, apiMessage: 'Error Updating User.', ...err})}
-
-
+        // next({apiCode: 500, apiMessage: 'Error Updating User.', ...err})}
+        next(err)}
     })
 
 module.exports = router;
